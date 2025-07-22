@@ -49,7 +49,11 @@
         </blockquote>
         </figure>
         <!-- AKHIR FIGURE JUDUL TABEL -->
-
+        <?php
+        session_start();
+        $dataPareto = $_SESSION['pareto'] ?? [];
+        $totalSemua = array_sum(array_column($dataPareto, 'total'));
+        ?>
         <!-- TABLE PARETO -->
         <table class="table table-hover mt-5 table-dark">
             <thead class="table-dark">
@@ -65,45 +69,25 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <tr>
-              <th scope="row">
-                  PI KANG SUANG
-              </th>
-
-              <td class="text-center">
-                Salep
-              </td>
-
-              <td class="text-center">
-                30000
-              </td>
-                
-              <td class="text-center">
-                100
-              </td>
-
-              <td class="text-center">
-                300000
-              </td>
-              
-              <td class="text-center">
-                100%
-              </td>
-                
-              <td class="text-center">
-                100%
-              </td>
-              <td class="text-center">
-                A
-              </td>
-            </tr>
+          <?php foreach ($dataPareto as $row): ?>
+          <tr>
+            <td><?= $row['nama'] ?></td>
+            <td class="text-center"><?= $row['sediaan'] ?></td>
+            <td class="text-center"><?= number_format($row['harga']) ?></td>
+            <td class="text-center"><?= $row['qty'] ?></td>
+            <td class="text-center"><?= number_format($row['total']) ?></td>
+            <td class="text-center"><?= $row['persen'] ?>%</td>
+            <td class="text-center"><?= $row['akumulasi'] ?>%</td>
+            <td class="text-center"><?= $row['kelompok'] ?></td>
+          </tr>
+          <?php endforeach; ?>
 
             <tr>
               <th colspan="4" class="text-center">Total</th>
-              <td class="text-center">300000</td>
+              <td class="text-center"><?= number_format($totalSemua) ?></td>
               <td class="text-center">100%</td>
               <td class="text-center">100%</td>
-              <td class="text-center">  </td>
+              <td class="text-center"></td>
             </tr>
         </tbody>
         </table>
