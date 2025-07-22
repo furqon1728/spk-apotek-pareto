@@ -105,7 +105,7 @@
             </div>
             
             <div class="mb-3 row mt-5">
-                <!-- BUTTON TAMBAH DATA MAHASISWA -->
+                <!-- BUTTON TAMBAH DATA OBAT -->
                 <div class="col">
                 <?php
                     if (isset($_GET['ubah'])) {
@@ -129,7 +129,7 @@
                     <i class="bi bi-backspace"></i>
                     Batal
                 </a>
-                <!-- AKHIR BUTTON TAMBAH DATA MAHASISWA -->
+                <!-- AKHIR BUTTON TAMBAH DATA OBAT -->
                 </div>
 
             </div>

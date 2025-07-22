@@ -4,12 +4,23 @@ create database spk_apotek;
 
 use spk_apotek;
 
+-- menampung data master semua produk
 create table obat(
 kode_obat varchar(20) primary key,
 nama_obat varchar(100),
 sediaan enum('Tablet', 'Kapsul', 'Pil', 'Serbuk', 'Salep', 'Krim', 'Gel', 'Sirup', 'Suspensi', 'Injeksi', 'Infus', 'Tetes', 'Inhalasi', 'Aerosol'),
 harga int
 );
+
+-- meyimpan data qty terjual tiap produk
+CREATE TABLE penjualan (
+id_penjualan INT AUTO_INCREMENT PRIMARY KEY,
+kode_obat VARCHAR(20),
+qty INT,
+tanggal DATE,
+FOREIGN KEY (kode_obat) REFERENCES obat(kode_obat)
+);
+
 
 INSERT INTO obat(kode_obat, nama_obat, sediaan, harga) VALUES
 -- SALAP
@@ -114,6 +125,3 @@ INSERT INTO obat(kode_obat, nama_obat, sediaan, harga) VALUES
 ('TET004','OBAT TETES HIDUNG','Tetes','12000'),
 ('TET005','TETES MATA INSTO','Tetes','10000');
 
--- alter table krs
--- add foreign key (mahasiswa_npm) references mahasiswa(npm),
--- add foreign key (matakuliah_kodemk) references matakuliah(kodemk);
