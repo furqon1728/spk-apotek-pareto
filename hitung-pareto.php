@@ -114,73 +114,76 @@
         <?php endif; ?>
       </div>
     <?php } ?>
-    <!-- TABLE OBAT -->
-    <table class="table table-hover mt-5 table-dark">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">No</th>
-          <th scope="col">Kode Obat</th>
-          <th scope="col">Nama Obat</th>
-          <th scope="col">Sediaan</th>
-          <th scope="col">Harga</th>
-          <th scope="col">Qty Terjual</th>
-        </tr>
-      </thead>
-      <tbody class="table-group-divider">
-         <?php
-          while ($result = mysqli_fetch_assoc($sql_obat)) {
-          
-        ?>
-        <tr>
-          <td>
-            <?php echo ++$no ?>
-          </td>
-          <td>
-            <?php echo $result['kode_obat'] ?>
-          </td>
-          <td>
-            <?php echo $result['nama_obat'] ?>
-          </td>
-          <td>
-            <?php echo $result['sediaan'] ?>
-          </td>
-          <td>
-            <?php echo $result['harga'] ?>
-          </td>
-          <td>
-            <div class="col-md-5">
-                <input type="text" class="form-control" id="inputQty">
-            </div>
-          </td>
-        </tr>
-       <?php 
-         }
 
-          // ⬇ Tambahkan kode berikut setelah perulangan ⬇
-            if (mysqli_num_rows($sql_obat) == 0) {
-          ?>
-            
-            <tr>
-              <td colspan="6" class="text-center text-light">Data tidak ditemukan</td>
-            </tr>
-        <?php
-          }
-        ?>
-      </tbody>
-    </table>
-    <!-- Akhir Tabel -->
+    <!-- TABLE OBAT DAN FORM INPUT QTY-->
+     <form method="POST" action="proses-pareto.php">
+       <table class="table table-hover mt-5 table-dark">
+         <thead class="table-dark">
+           <tr>
+             <th scope="col">No</th>
+             <th scope="col">Kode Obat</th>
+             <th scope="col">Nama Obat</th>
+             <th scope="col">Sediaan</th>
+             <th scope="col">Harga</th>
+             <th scope="col">Qty Terjual</th>
+           </tr>
+         </thead>
+         <tbody class="table-group-divider">
+            <?php
+             while ($result = mysqli_fetch_assoc($sql_obat)) {
+             
+           ?>
+           <tr>
+             <td>
+               <?php echo ++$no ?>
+             </td>
+             <td>
+               <?php echo $result['kode_obat'] ?>
+             </td>
+             <td>
+               <?php echo $result['nama_obat'] ?>
+             </td>
+             <td>
+               <?php echo $result['sediaan'] ?>
+             </td>
+             <td>
+               <?php echo $result['harga'] ?>
+             </td>
+             <td>
+               <div class="col-md-5">
+                   <input type="number" name="qty[<?= $result['kode_obat'] ?>]" class="form-control">
+               </div>
+             </td>
+           </tr>
+          <?php 
+            }
+   
+             // ⬇ Tambahkan kode berikut setelah perulangan ⬇
+               if (mysqli_num_rows($sql_obat) == 0) {
+             ?>
+               
+               <tr>
+                 <td colspan="6" class="text-center text-light">Data tidak ditemukan</td>
+               </tr>
+           <?php
+             }
+           ?>
+         </tbody>
+       </table>
+       <!-- Akhir Tabel -->
+       <div class="container text-center mt-4 mb-4">
+           <div class="row">
+               <div class="col-9"></div>
+               <div class="col-3">
+                   <button type="submit" class="btn btn-success">
+                   <i class="bi bi-clipboard-data"></i>
+                   Hitung Pareto
+                   </button>
+               </div>
+           </div>
+       </div>
+     </form>
 
-    <div class="container text-center mt-4 mb-4">
-        <div class="row">
-            <div class="col-9"></div>
-            <div class="col-3">
-                <a href="#" class="btn btn-success active" role="button" aria-pressed="true">
-                <i class="bi bi-clipboard-data"></i>
-                Hitung Pareto
-                </a>
-            </div>
-        </div>
-    </div>
 
 
     </div>
