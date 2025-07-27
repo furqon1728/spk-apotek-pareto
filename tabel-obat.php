@@ -24,7 +24,6 @@
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -141,16 +140,16 @@
         ?>
         <tr>
           <td>
-            <?php echo $result['kode_obat'] ?>
+            <?= htmlspecialchars($result['kode_obat']) ?>
           </td>
           <td>
-            <?php echo $result['nama_obat'] ?>
+            <?= htmlspecialchars($result['nama_obat']) ?>
           </td>
           <td>
             <?php echo $result['sediaan'] ?>
           </td>
           <td>
-            <?php echo $result['harga'] ?>
+            Rp<?= number_format($result['harga'], 0, ',', '.') ?>
           </td>
           <td>
             <a type="button" class="btn btn-success" href="kelola-obat.php?ubah=<?php echo $result['kode_obat'];?>"> <i class="bi bi-pencil"></i> </a>
@@ -173,9 +172,6 @@
 
       </tbody>
     </table>
-    </div>
-
-            </table>
     </div>
 
 <!-- Bootsrap CDN -->

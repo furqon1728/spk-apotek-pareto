@@ -26,7 +26,6 @@
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -147,8 +146,8 @@
                <?php echo $result['sediaan'] ?>
              </td>
              <td>
-               <?php echo $result['harga'] ?>
-             </td>
+                Rp<?= number_format($result['harga'], 0, ',', '.') ?>
+              </td>
              <td>
                <div class="col-md-5">
                    <input type="number" name="qty[<?= $result['kode_obat'] ?>]" class="form-control">

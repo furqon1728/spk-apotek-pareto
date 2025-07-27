@@ -89,7 +89,7 @@
                     <option <?php if ($sediaan == 'Sirup'){echo "selected";}?> value="Sirup">Sirup</option>
                     <option <?php if ($sediaan == 'Suspensi'){echo "selected";}?> value="Suspensi">Suspensi</option>
                     <option <?php if ($sediaan == 'Injeksi'){echo "selected";}?> value="Injeksi">Injeksi</option>
-                    <option <?php if ($sediaan == 'Infuus'){echo "selected";}?> value="Infus">Infus</option>
+                    <option <?php if ($sediaan == 'Infus'){echo "selected";}?> value="Infus">Infus</option>
                     <option <?php if ($sediaan == 'Tetes'){echo "selected";}?> value="Tetes">Tetes</option>
                     <option <?php if ($sediaan == 'Inhalasi'){echo "selected";}?> value="Inhalasi">Inhalasi</option>
                     <option <?php if ($sediaan == 'Aerosol'){echo "selected";}?> value="Aerosol">Aerosol</option>
