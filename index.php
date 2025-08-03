@@ -52,6 +52,9 @@
         session_start();
         $dataPareto = $_SESSION['pareto'] ?? [];
         $totalSemua = array_sum(array_column($dataPareto, 'total'));
+        $adaData = $totalSemua > 0;
+
+        if ($adaData):
         ?>
         <!-- TABLE PARETO -->
         <table class="table table-hover mt-5 table-dark">
@@ -107,7 +110,7 @@
         </tbody>
         </table>
         <!-- AKHIR TABLE PARETO -->
-
+        
         <?php
         $grupStats = [
           'A' => ['item' => 0, 'persen' => 0],
@@ -170,6 +173,15 @@
         <a href="export-excel.php" class="btn btn-warning mt-3 mb-3">
           <i class="bi bi-file-earmark-excel"></i> Unduh xls
         </a>
+
+        <?php else: ?>
+        <div class="alert alert-warning mt-5">
+          <strong>Data Belum Tersedia</strong><br>
+          Silakan lakukan perhitungan pareto terlebih dahulu di halaman
+          <a href="hitung-pareto.php" class="alert-link">Hitung Pareto</a>
+        </div>
+        <?php  endif; ?>
+
 
     </div>
 <!-- Bootsrap CDN -->
