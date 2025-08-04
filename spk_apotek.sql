@@ -13,13 +13,13 @@ harga int
 );
 
 -- meyimpan data qty terjual tiap produk
-CREATE TABLE penjualan (
-id_penjualan INT AUTO_INCREMENT PRIMARY KEY,
-kode_obat VARCHAR(20),
-qty INT,
-tanggal DATE,
-FOREIGN KEY (kode_obat) REFERENCES obat(kode_obat)
-);
+-- CREATE TABLE penjualan (
+-- id_penjualan INT AUTO_INCREMENT PRIMARY KEY,
+-- kode_obat VARCHAR(20),
+-- qty INT,
+-- tanggal DATE,
+-- FOREIGN KEY (kode_obat) REFERENCES obat(kode_obat)
+-- );
 
 
 INSERT INTO obat(kode_obat, nama_obat, sediaan, harga) VALUES
