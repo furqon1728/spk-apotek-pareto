@@ -171,7 +171,7 @@
         <!-- AKHIR TABLE PARETO 2-->
          
         <a href="export-excel.php" class="btn btn-warning mt-3 mb-3">
-          <i class="bi bi-file-earmark-excel"></i> Unduh xls
+          <i class="bi bi-file-earmark-excel"></i> Unduh XLS
         </a>
 
         <?php else: ?>
