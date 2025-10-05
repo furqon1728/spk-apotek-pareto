@@ -1,51 +1,36 @@
 <?php
-    include 'koneksi.php';
+include 'koneksi.php';
 
-    if (isset($_POST['aksi'])) {
-                  if ($_POST['aksi'] == "add") {
-                    $inputKodeObat = $_POST['inputKodeObat'];
-                    $inputNamaObat = $_POST['inputNamaObat'];
-                    $inputSediaan = $_POST['inputSediaan'];
-                    $inputHarga = $_POST['inputHarga'];
+if (isset($_POST['aksi'])) {
+  $kode = $_POST['inputKodeObat'];
+  $nama = $_POST['inputNamaObat'];
+  $sediaan = $_POST['inputSediaan'];
+  $harga = $_POST['inputHarga'];
 
-                    $query = "INSERT INTO obat VALUES('$inputKodeObat', '$inputNamaObat', '$inputSediaan', '$inputHarga')";
-                    $sql = mysqli_query($koneksi, $query);
+  if ($_POST['aksi'] == "add") {
+    $query = "INSERT INTO obat (kode_obat, nama_obat, sediaan, harga) VALUES ('$kode', '$nama', '$sediaan', '$harga')";
+  } elseif ($_POST['aksi'] == "edit") {
+    $query = "UPDATE obat SET nama_obat='$nama', sediaan='$sediaan', harga='$harga' WHERE kode_obat='$kode'";
+  }
 
-                    if ($sql) {
-                      header("location: tabel-obat.php");
-                      // echo "<h2 class='text-light'>Tambah Data</h2> <a href='tabel-obat.php'>[Home]</a>"; 
-                    } else {
-                      echo $query;
-                    }
+  $sql = mysqli_query($koneksi, $query);
+  if ($sql) {
+    header("Location: tabel-obat.php");
+    exit;
+  } else {
+    echo "Gagal eksekusi query: <br>$query";
+  }
+}
 
-                  }elseif ($_POST['aksi'] == "edit") {
-                    $inputKodeObat = $_POST['inputKodeObat'];
-                    $inputNamaObat = $_POST['inputNamaObat'];
-                    $inputSediaan = $_POST['inputSediaan'];
-                    $inputHarga = $_POST['inputHarga'];
-
-                    $query = "UPDATE obat SET kode_obat='$inputKodeObat', nama_obat='$inputNamaObat', sediaan='$inputSediaan', harga='$inputHarga' WHERE kode_obat='$inputKodeObat';";
-                    $sql = mysqli_query($koneksi, $query);
-
-                    if ($sql) {
-                      header("location: tabel-obat.php");
-                    } else {
-                      echo $query;
-                    }
-
-                  }
-              }
-
-              if (isset($_GET['hapus'])) {
-                $kodeObat = $_GET['hapus'];
-                $query = "DELETE FROM obat WHERE kode_obat = '$kodeObat'";
-                $sql = mysqli_query($koneksi, $query);
-                
-                if ($sql) {
-                  header("location: tabel-obat.php");
-                } else {
-                  echo $query;
-                }
-                
-              }
+if (isset($_GET['hapus'])) {
+  $kode = $_GET['hapus'];
+  $query = "DELETE FROM obat WHERE kode_obat = '$kode'";
+  $sql = mysqli_query($koneksi, $query);
+  if ($sql) {
+    header("Location: tabel-obat.php");
+    exit;
+  } else {
+    echo "Gagal menghapus data: <br>$query";
+  }
+}
 ?>
