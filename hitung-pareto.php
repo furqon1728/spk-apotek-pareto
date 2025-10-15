@@ -16,7 +16,7 @@ if (!empty($kategori)) {
 $sql_obat = mysqli_query($koneksi, $select_obat);
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,7 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
 </head>
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow fixed-top">
+  <nav class="navbar navbar-expand-lg bg-light shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">SPK Apotek</a>
       <ul class="nav nav-pills ms-auto">
@@ -40,7 +40,7 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
 
   <!-- CONTENT -->
   <div class="container pt-5 mt-5">
-    <figure class="text-light">
+    <figure class="text-dark">
       <blockquote class="blockquote">
         <h1 class="h3">Hitung Pareto</h1>
       </blockquote>
@@ -76,7 +76,7 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
 
     <!-- FEEDBACK PILIHAN -->
     <?php if (!empty($kategori) || !empty($cari)): ?>
-    <div class="text-light mb-3">
+    <div class="text-dark mb-3">
       <?php if (!empty($kategori)): ?>
         <p>Kategori dipilih: <strong><?= htmlspecialchars($kategori) ?></strong></p>
       <?php endif; ?>
@@ -89,7 +89,7 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
     <!-- TABLE OBAT + INPUT QTY -->
     <form method="POST" action="proses-pareto.php">
       <div class="table-responsive">
-        <table class="table table-hover table-dark">
+        <table class="table table-hover table-light">
           <thead>
             <tr>
               <th>No</th>
@@ -116,7 +116,7 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
               <?php endwhile; ?>
             <?php else: ?>
               <tr>
-                <td colspan="6" class="text-center text-light">Data tidak ditemukan</td>
+                <td colspan="6" class="text-center text-dark">Data tidak ditemukan</td>
               </tr>
             <?php endif; ?>
           </tbody>

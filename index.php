@@ -6,7 +6,7 @@ $totalSemua = array_sum(array_column($dataPareto, 'total'));
 $adaData = $totalSemua > 0;
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@ $adaData = $totalSemua > 0;
 </head>
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow fixed-top">
+  <nav class="navbar navbar-expand-lg bg-light shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">SPK Apotek</a>
       <ul class="nav nav-pills ms-auto">
@@ -30,7 +30,7 @@ $adaData = $totalSemua > 0;
 
   <!-- CONTENT -->
   <div class="container pt-5 mt-5">
-    <figure class="text-light">
+    <figure class="text-dark">
       <blockquote class="blockquote">
         <h1 class="h3">Laporan Pareto</h1>
         <p>Berisi Data Obat berdasarkan kelas prioritas</p>
@@ -39,7 +39,7 @@ $adaData = $totalSemua > 0;
 
     <?php if ($adaData): ?>
     <div class="table-responsive">
-      <table class="table table-hover table-dark mt-4">
+      <table class="table table-hover table-light mt-4">
         <thead>
           <tr class="text-center">
             <th>Nama Produk</th>
@@ -96,7 +96,7 @@ $adaData = $totalSemua > 0;
     $totalItem = count($dataPareto);
     ?>
 
-    <div class="alert alert-info mt-4">
+    <div class="alert alert-secondary mt-4">
       <strong>Penjelasan Kategori Pareto:</strong><br>
       <ul>
         <li><strong>Kategori A</strong>: Obat yang menyumbang ±80% penjualan, walau jumlahnya sedikit.</li>
@@ -106,7 +106,7 @@ $adaData = $totalSemua > 0;
     </div>
 
     <div class="table-responsive">
-      <table class="table table-hover table-dark mt-4">
+      <table class="table table-hover table-light mt-4">
         <thead>
           <tr>
             <th>Kategori Prioritas</th>

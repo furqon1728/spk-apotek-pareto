@@ -42,7 +42,7 @@ $totalPages = ceil($totalData / $limit);
 
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +53,7 @@ $totalPages = ceil($totalData / $limit);
 </head>
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow fixed-top">
+  <nav class="navbar navbar-expand-lg bg-light shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">SPK Apotek</a>
       <ul class="nav nav-pills ms-auto">
@@ -66,7 +66,7 @@ $totalPages = ceil($totalData / $limit);
 
   <!-- CONTENT -->
   <div class="container pt-5 mt-5">
-    <figure class="text-light">
+    <figure class="text-dark">
       <blockquote class="blockquote">
         <h1 class="h3">Tabel Data Obat</h1>
       </blockquote>
@@ -115,7 +115,7 @@ $totalPages = ceil($totalData / $limit);
     <form method="GET" action="" class="mb-3">
       <input type="hidden" name="kategori" value="<?= htmlspecialchars($kategori) ?>">
       <input type="hidden" name="cari" value="<?= htmlspecialchars($cari) ?>">
-      <label class="text-light me-2">Tampilkan:</label>
+      <label class="text-dark me-2">Tampilkan:</label>
       <select name="limit" onchange="this.form.submit()" class="form-select d-inline-block w-auto">
         <?php foreach ($limitOptions as $opt): ?>
           <option value="<?= $opt ?>" <?= ($limit == $opt) ? 'selected' : '' ?>><?= $opt ?> item</option>
@@ -125,7 +125,7 @@ $totalPages = ceil($totalData / $limit);
 
     <!-- FEEDBACK PILIHAN -->
     <?php if (!empty($kategori) || !empty($cari)): ?>
-    <div class="text-light mb-3">
+    <div class="text-dark mb-3">
       <?php if (!empty($kategori)): ?>
         <p>Kategori dipilih: <strong><?= htmlspecialchars($kategori) ?></strong></p>
         <a href="tabel-obat.php" class="btn btn-secondary btn-sm">Reset Filter</a>
@@ -138,7 +138,7 @@ $totalPages = ceil($totalData / $limit);
 
     <!-- TABLE OBAT -->
     <div class="table-responsive">
-      <table class="table table-hover table-dark">
+      <table class="table table-hover table-white">
         <thead>
           <tr>
             <th>Kode Obat</th>
@@ -164,7 +164,7 @@ $totalPages = ceil($totalData / $limit);
             <?php endwhile; ?>
           <?php else: ?>
             <tr>
-              <td colspan="5" class="text-center text-light">Data tidak ditemukan</td>
+              <td colspan="5" class="text-center text-dark">Data tidak ditemukan</td>
             </tr>
           <?php endif; ?>
         </tbody>

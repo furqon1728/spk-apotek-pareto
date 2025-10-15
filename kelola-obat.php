@@ -18,7 +18,7 @@ if (isset($_GET['ubah'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,7 @@ if (isset($_GET['ubah'])) {
 </head>
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary shadow fixed-top">
+  <nav class="navbar navbar-expand-lg bg-light shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">SPK Apotek</a>
     </div>
@@ -37,14 +37,14 @@ if (isset($_GET['ubah'])) {
 
   <!-- CONTENT -->
   <div class="container pt-5 mt-5">
-    <figure class="text-light">
+    <figure class="text-dark">
       <blockquote class="blockquote">
         <h1 class="h3">Data Obat</h1>
       </blockquote>
     </figure>
 
     <!-- FORM -->
-    <div class="text-light mt-4">
+    <div class="text-dark mt-4">
       <form method="POST" action="proses-obat.php">
         <div class="mb-3">
           <label for="inputKodeObat" class="form-label">Kode Obat</label>
