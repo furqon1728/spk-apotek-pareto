@@ -16,10 +16,9 @@ SPK Apotek adalah aplikasi web berbasis PHP yang dirancang untuk membantu pengel
   - Persentase dan akumulasi otomatis
   - Pengelompokan otomatis: A (kontribusi tinggi), B (sedang), C (rendah)
 
-- **Ekspor & Visualisasi**
+- **Ekspor**
   - Ekspor data ke Excel `.xls`
-  - Visualisasi analisis Pareto di Excel menggunakan rumus dinamis
-  - Dukungan PDF melalui `html2pdf.js` *(opsional)*
+  
 
 ---
 
