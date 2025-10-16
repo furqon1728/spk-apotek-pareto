@@ -1,6 +1,11 @@
 <?php
 include 'koneksi.php';
 session_start();
+if (!isset($_SESSION['login'])) {
+  header("Location: login.php");
+  exit;
+}
+
 $dataPareto = $_SESSION['pareto'] ?? [];
 $totalSemua = array_sum(array_column($dataPareto, 'total'));
 $adaData = $totalSemua > 0;
@@ -20,11 +25,21 @@ $adaData = $totalSemua > 0;
   <nav class="navbar navbar-expand-lg bg-light shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">SPK Apotek</a>
-      <ul class="nav nav-pills ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="#">Laporan Pareto</a></li>
-        <li class="nav-item"><a class="nav-link" href="hitung-pareto.php">Hitung Pareto</a></li>
-        <li class="nav-item"><a class="nav-link" href="tabel-obat.php">Data Obat</a></li>
-      </ul>
+
+      <!-- Tombol Burger -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu yang akan collapse -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.php">Laporan Pareto</a></li>
+          <li class="nav-item"><a class="nav-link" href="hitung-pareto.php">Hitung Pareto</a></li>
+          <li class="nav-item"><a class="nav-link" href="tabel-obat.php">Data Obat</a></li>
+          <li class="nav-item"><a class="nav-link text-danger" href="logout.php">Logout</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
