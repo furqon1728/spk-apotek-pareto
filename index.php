@@ -37,6 +37,7 @@ $adaData = $totalSemua > 0;
           <li class="nav-item fw-bold"><a class="nav-link active" href="index.php">Laporan Pareto</a></li>
           <li class="nav-item"><a class="nav-link" href="hitung-pareto.php">Hitung Pareto</a></li>
           <li class="nav-item"><a class="nav-link" href="tabel-obat.php">Data Obat</a></li>
+          <li class="nav-item"><a class="nav-link" href="arsip-laporan.php">Arsip Laporan</a></li>
           <li class="nav-item"><a class="nav-link text-danger" href="logout.php">Logout</a></li>
         </ul>
       </div>
@@ -159,7 +160,7 @@ $adaData = $totalSemua > 0;
     </div>
 
     <a href="export-excel.php" class="btn btn-warning mt-3 mb-3">
-      <i class="bi bi-file-earmark-excel"></i> Unduh XLS
+      <i class="bi bi-file-earmark-excel"></i> Simpan Laporan
     </a>
 
     <?php else: ?>

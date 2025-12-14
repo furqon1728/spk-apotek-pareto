@@ -42,6 +42,7 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
           <li class="nav-item"><a class="nav-link" href="index.php">Laporan Pareto</a></li>
           <li class="nav-item fw-bold"><a class="nav-link active" href="hitung-pareto.php">Hitung Pareto</a></li>
           <li class="nav-item"><a class="nav-link" href="tabel-obat.php">Data Obat</a></li>
+          <li class="nav-item"><a class="nav-link" href="arsip-laporan.php">Arsip Laporan</a></li>
           <li class="nav-item"><a class="nav-link text-danger" href="logout.php">Logout</a></li>
         </ul>
       </div>

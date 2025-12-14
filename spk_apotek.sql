@@ -12,6 +12,22 @@ sediaan enum('Tablet', 'Kapsul', 'Pil', 'Serbuk', 'Salep', 'Krim', 'Gel', 'Sirup
 harga int
 );
 
+CREATE TABLE user (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
+
+INSERT INTO user (username, password)
+VALUES ('admin', MD5('admin123'));
+
+CREATE TABLE arsip_laporan (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_file VARCHAR(255) NOT NULL,
+    tanggal DATETIME NOT NULL,
+    path VARCHAR(255) NOT NULL
+);
+
 -- meyimpan data qty terjual tiap produk
 -- CREATE TABLE penjualan (
 -- id_penjualan INT AUTO_INCREMENT PRIMARY KEY,
@@ -124,4 +140,3 @@ INSERT INTO obat(kode_obat, nama_obat, sediaan, harga) VALUES
 ('TET003','OBAT TETES TELINGA','Tetes','15000'),
 ('TET004','OBAT TETES HIDUNG','Tetes','12000'),
 ('TET005','TETES MATA INSTO','Tetes','10000');
-

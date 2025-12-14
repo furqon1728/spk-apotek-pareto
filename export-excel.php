@@ -2,11 +2,24 @@
 session_start();
 $dataPareto = $_SESSION['pareto'] ?? [];
 
+// ====== Generate nama file otomatis ======
+date_default_timezone_set('Asia/Jakarta');
+$timestamp = date('Y-m-d_H-i-s');
+$namaFile = "pareto_" . $timestamp . ".xls";
+
+// Lokasi penyimpanan di server
+$folder = "laporan_pareto/";
+$pathFile = $folder . $namaFile;
+
 // Header agar browser menganggap ini file Excel
 header("Content-Type: application/vnd.ms-excel");
-header("Content-Disposition: attachment; filename=laporan_pareto.xls");
+header("Content-Disposition: attachment; filename=$namaFile");
+
+// Mulai buffer output
+ob_start();
 ?>
 
+ 
 <h3 style="margin-top:30px;">Ringkasan Kategori A/B/C</h3>
 <p>Analisis berdasarkan prinsip Pareto untuk menentukan obat prioritas tertinggi.</p>
 
@@ -79,5 +92,21 @@ header("Content-Disposition: attachment; filename=laporan_pareto.xls");
     echo "</td>";
     echo "</tr>";
   }
+
+  // Ambil seluruh output HTML Excel
+  $content = ob_get_contents();
+  ob_end_flush();
+
+  // Simpan ke file fisik di server
+  file_put_contents($pathFile, $content);
+
+  // ====== Simpan metadata ke database ======
+  include 'koneksi.php';
+  $tanggal = date('Y-m-d H:i:s');
+
+  mysqli_query($koneksi, "
+      INSERT INTO arsip_laporan (nama_file, tanggal, path)
+      VALUES ('$namaFile', '$tanggal', '$pathFile')
+  ");
   ?>
 </table>

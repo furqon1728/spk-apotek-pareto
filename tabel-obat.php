@@ -68,6 +68,7 @@ $totalPages = ceil($totalData / $limit);
           <li class="nav-item"><a class="nav-link" href="index.php">Laporan Pareto</a></li>
           <li class="nav-item"><a class="nav-link" href="hitung-pareto.php">Hitung Pareto</a></li>
           <li class="nav-item fw-bold"><a class="nav-link active" href="tabel-obat.php">Data Obat</a></li>
+          <li class="nav-item"><a class="nav-link" href="arsip-laporan.php">Arsip Laporan</a></li>
           <li class="nav-item"><a class="nav-link text-danger" href="logout.php">Logout</a></li>
         </ul>
       </div>
