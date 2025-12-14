@@ -159,88 +159,101 @@ $totalPages = ceil($totalData / $limit);
         <?= !empty($sampai) ? "Sampai <b>$sampai</b>" : "" ?>
       </div>
       <?php endif; ?>
-  
-  <!-- Tabel Laporan -->
-  <div class="table-responsive">
-    <table class="table table-hover table-light">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Nama File</th>
-          <th>Tanggal Dibuat</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $no = 1;
-        if (mysqli_num_rows($sql) > 0):
-          while ($row = mysqli_fetch_assoc($sql)):
-        ?>
-        <tr>
-          <td><?= $no++ ?></td>
-          <td><?= htmlspecialchars($row['nama_file']) ?></td>
-          <td><?= date('d M Y - H:i:s', strtotime($row['tanggal'])) ?></td>
-          <td>
-            <a class="btn btn-success btn-sm" href="<?= $row['path'] ?>" download>
-              <i class="bi bi-download"></i> Download
-            </a>
 
-            <a class="btn btn-danger btn-sm"
-              href="hapus-arsip.php?id=<?= $row['id'] ?>"
-              onclick="return confirm('Yakin ingin menghapus laporan ini?')">
-                <i class="bi bi-trash"></i> Hapus
-            </a>
+    <!-- Tabel Laporan -->
+    <form method="POST" action="hapus-bulk.php" id="bulkForm">
 
-          </td>
-        </tr>
-        <?php
-          endwhile;
-        else:
-        ?>
-        <tr>
-          <td colspan="4" class="text-center text-dark">Belum ada arsip laporan</td>
-        </tr>
+    <button type="submit" class="btn btn-danger mb-3"
+            onclick="return confirm('Yakin ingin menghapus semua laporan terpilih?')">
+      <i class="bi bi-trash"></i> Hapus Terpilih
+    </button>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-light">
+        <thead>
+          <tr>
+            <th>
+              <input type="checkbox" id="checkAll" class="form-check-input mt-0">
+            </th>
+            <th>No</th>
+            <th>Nama File</th>
+            <th>Tanggal Dibuat</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $no = $offset + 1;
+          if (mysqli_num_rows($sql) > 0):
+            while ($row = mysqli_fetch_assoc($sql)):
+          ?>
+          <tr>
+            <td>
+              <input type="checkbox" name="selected[]" value="<?= $row['id'] ?>" class="checkItem form-check-input mt-0">
+            </td>
+            <td><?= $no++ ?></td>
+            <td><?= htmlspecialchars($row['nama_file']) ?></td>
+            <td><?= date('d M Y - H:i:s', strtotime($row['tanggal'])) ?></td>
+            <td>
+              <a class="btn btn-success btn-sm" href="<?= $row['path'] ?>" download>
+                <i class="bi bi-download"></i> Download
+              </a>
+
+              <a class="btn btn-danger btn-sm"
+                href="hapus-arsip.php?id=<?= $row['id'] ?>"
+                onclick="return confirm('Yakin ingin menghapus laporan ini?')">
+                  <i class="bi bi-trash"></i> Hapus
+              </a>
+            </td>
+          </tr>
+          <?php
+            endwhile;
+          else:
+          ?>
+          <tr>
+            <td colspan="5" class="text-center text-dark">Belum ada arsip laporan</td>
+          </tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+      </form>
+
+      <!-- Pagination -->
+      <?php if ($totalPages > 1): ?>
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+
+            <?php if ($page > 1): ?>
+              <li class="page-item">
+                <a class="page-link"
+                  href="?page=<?= $page - 1 ?>&limit=<?= $limit ?>&bulan=<?= $bulan ?>&tahun=<?= $tahun ?>&dari=<?= $dari ?>&sampai=<?= $sampai ?>">
+                  Previous
+                </a>
+              </li>
+            <?php endif; ?>
+
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+              <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                <a class="page-link"
+                  href="?page=<?= $i ?>&limit=<?= $limit ?>&bulan=<?= $bulan ?>&tahun=<?= $tahun ?>&dari=<?= $dari ?>&sampai=<?= $sampai ?>">
+                  <?= $i ?>
+                </a>
+              </li>
+            <?php endfor; ?>
+
+            <?php if ($page < $totalPages): ?>
+              <li class="page-item">
+                <a class="page-link"
+                  href="?page=<?= $page + 1 ?>&limit=<?= $limit ?>&bulan=<?= $bulan ?>&tahun=<?= $tahun ?>&dari=<?= $dari ?>&sampai=<?= $sampai ?>">
+                  Next
+                </a>
+              </li>
+            <?php endif; ?>
+
+          </ul>
+        </nav>
         <?php endif; ?>
-      </tbody>
-    </table>
-
-    <!-- Pagination -->
-    <?php if ($totalPages > 1): ?>
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-
-          <?php if ($page > 1): ?>
-            <li class="page-item">
-              <a class="page-link"
-                href="?page=<?= $page - 1 ?>&limit=<?= $limit ?>&bulan=<?= $bulan ?>&tahun=<?= $tahun ?>&dari=<?= $dari ?>&sampai=<?= $sampai ?>">
-                Previous
-              </a>
-            </li>
-          <?php endif; ?>
-
-          <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-              <a class="page-link"
-                href="?page=<?= $i ?>&limit=<?= $limit ?>&bulan=<?= $bulan ?>&tahun=<?= $tahun ?>&dari=<?= $dari ?>&sampai=<?= $sampai ?>">
-                <?= $i ?>
-              </a>
-            </li>
-          <?php endfor; ?>
-
-          <?php if ($page < $totalPages): ?>
-            <li class="page-item">
-              <a class="page-link"
-                href="?page=<?= $page + 1 ?>&limit=<?= $limit ?>&bulan=<?= $bulan ?>&tahun=<?= $tahun ?>&dari=<?= $dari ?>&sampai=<?= $sampai ?>">
-                Next
-              </a>
-            </li>
-          <?php endif; ?>
-
-        </ul>
-      </nav>
-      <?php endif; ?>
-  </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
@@ -248,6 +261,12 @@ $totalPages = ceil($totalData / $limit);
    function submitForm() {
     document.getElementById('filterForm').submit();
   }
+
+  document.getElementById('checkAll').addEventListener('change', function() {
+    let items = document.querySelectorAll('.checkItem');
+    items.forEach(i => i.checked = this.checked);
+  });
+
 </script>
 </body>
 </html>
