@@ -96,7 +96,7 @@ $adaData = $totalSemua > 0;
             <th colspan="4" class="text-center">Total</th>
             <td class="text-center">Rp <?= number_format($totalSemua, 0, ',', '.') ?></td>
             <td class="text-center"><strong><?= round($totalPersen, 2) ?>%</strong></td>
-            <td class="text-center"><strong><?= round($totalAkumulasi, 2) ?>%</strong></td>
+            <td></td>
             <td></td>
           </tr>
         </tbody>

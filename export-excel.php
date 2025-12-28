@@ -2,7 +2,7 @@
 session_start();
 $dataPareto = $_SESSION['pareto'] ?? [];
 
-// ====== Generate nama file otomatis ======
+// Generate nama file otomatis
 date_default_timezone_set('Asia/Jakarta');
 $timestamp = date('Y-m-d_H-i-s');
 $namaFile = "pareto_" . $timestamp . ".xls";
@@ -100,7 +100,7 @@ ob_start();
   // Simpan ke file fisik di server
   file_put_contents($pathFile, $content);
 
-  // ====== Simpan metadata ke database ======
+  // Simpan metadata ke database
   include 'koneksi.php';
   $tanggal = date('Y-m-d H:i:s');
 

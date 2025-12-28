@@ -1,19 +1,12 @@
 <?php
 include 'koneksi.php';
 
-$no = 0;
-$cari = isset($_GET['cari']) ? $_GET['cari'] : '';
-$kategori = isset($_GET['kategori']) ? $_GET['kategori'] : '';
-
-// Query dasar
-$select_obat = "SELECT * FROM obat WHERE 1";
-if (!empty($cari)) {
-  $select_obat .= " AND nama_obat LIKE '%$cari%'";
+// Ambil semua data obat sekali saja
+$sql_obat = mysqli_query($koneksi, "SELECT * FROM obat");
+$allObat = [];
+while ($row = mysqli_fetch_assoc($sql_obat)) {
+  $allObat[] = $row;
 }
-if (!empty($kategori)) {
-  $select_obat .= " AND sediaan = '$kategori'";
-}
-$sql_obat = mysqli_query($koneksi, $select_obat);
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
@@ -21,7 +14,6 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SPK Apotek</title>
-  <!-- Bootstrap CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
@@ -30,13 +22,9 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
   <nav class="navbar navbar-expand-lg bg-light shadow fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">SPK Apotek</a>
-
-      <!-- Tombol Burger -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <!-- Menu yang akan collapse -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.php">Laporan Pareto</a></li>
@@ -51,98 +39,126 @@ $sql_obat = mysqli_query($koneksi, $select_obat);
 
   <!-- CONTENT -->
   <div class="container pt-5 mt-5">
-    <figure class="text-dark">
-      <blockquote class="blockquote">
-        <h1 class="h3">Hitung Pareto</h1>
-      </blockquote>
-    </figure>
+    <h1 class="h3 text-dark mb-4">Hitung Pareto</h1>
 
     <div class="row g-3 mb-4">
       <!-- FILTER KATEGORI -->
       <div class="col-md-6">
-        <form method="GET" action="">
-          <select class="form-select" name="kategori" onchange="this.form.submit()">
-            <option value="">Pilih Kategori</option>
-            <?php
-            $kategoriList = ['Tablet','Kapsul','Pil','Serbuk','Salep','Krim','Gel','Sirup','Suspensi','Injeksi','Infus','Tetes','Inhalasi','Aerosol'];
-            foreach ($kategoriList as $item) {
-              $selected = ($kategori == $item) ? 'selected' : '';
-              echo "<option value=\"$item\" $selected>$item</option>";
-            }
-            ?>
-          </select>
-        </form>
+        <select class="form-select" id="kategoriSelect" onchange="setKategori(this.value)">
+          <option value="">Pilih Kategori</option>
+          <?php
+          $kategoriList = ['Aerosol','Gel','Inhalasi','Infus','Injeksi','Kapsul','Krim','Pil','Salep','Serbuk','Sirup','Suspensi','Tablet','Tetes','Tube'];
+          foreach ($kategoriList as $item) {
+            echo "<option value=\"$item\">$item</option>";
+          }
+          ?>
+        </select>
       </div>
 
-      <!-- FORM SEARCH -->
+      <!-- SEARCH BAR -->
       <div class="col-md-6">
-        <form method="GET" action="">
-          <div class="input-group">
-            <input type="text" class="form-control" name="cari" placeholder="Cari nama obat..." value="<?= htmlspecialchars($cari) ?>">
-            <button class="btn btn-outline-light" type="submit">Cari</button>
-          </div>
-        </form>
+        <div class="input-group">
+          <input type="text" id="searchObat" class="form-control" placeholder="Cari nama obat..." oninput="filterObat(this.value)">
+        </div>
       </div>
     </div>
 
-    <!-- FEEDBACK PILIHAN -->
-    <?php if (!empty($kategori) || !empty($cari)): ?>
-    <div class="text-dark mb-3">
-      <?php if (!empty($kategori)): ?>
-        <p>Kategori dipilih: <strong><?= htmlspecialchars($kategori) ?></strong></p>
-      <?php endif; ?>
-      <?php if (!empty($cari)): ?>
-        <p>Hasil pencarian: <strong><?= htmlspecialchars($cari) ?></strong></p>
-      <?php endif; ?>
+    <!-- TABLE OBAT -->
+    <div class="table-responsive">
+      <table class="table table-hover table-light">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Kode Obat</th>
+            <th>Nama Obat</th>
+            <th>Sediaan</th>
+            <th>Harga</th>
+            <th>Qty Terjual</th>
+          </tr>
+        </thead>
+        <tbody id="tabelObat"></tbody>
+      </table>
     </div>
-    <?php endif; ?>
 
-    <!-- TABLE OBAT + INPUT QTY -->
-    <form method="POST" action="proses-pareto.php">
-      <div class="table-responsive">
-        <table class="table table-hover table-light">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Kode Obat</th>
-              <th>Nama Obat</th>
-              <th>Sediaan</th>
-              <th>Harga</th>
-              <th>Qty Terjual</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php if (mysqli_num_rows($sql_obat) > 0): ?>
-              <?php while ($result = mysqli_fetch_assoc($sql_obat)): ?>
-              <tr>
-                <td><?= ++$no ?></td>
-                <td><?= htmlspecialchars($result['kode_obat']) ?></td>
-                <td><?= htmlspecialchars($result['nama_obat']) ?></td>
-                <td><?= htmlspecialchars($result['sediaan']) ?></td>
-                <td>Rp <?= number_format($result['harga'], 0, ',', '.') ?></td>
-                <td>
-                  <input type="number" name="qty[<?= $result['kode_obat'] ?>]" class="form-control form-control-sm w-100" min="0">
-                </td>
-              </tr>
-              <?php endwhile; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="6" class="text-center text-dark">Data tidak ditemukan</td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="text-end mt-4">
-        <button type="submit" class="btn btn-success">
-          <i class="bi bi-clipboard-data"></i> Hitung Pareto
-        </button>
-      </div>
-    </form>
+    <div class="text-end mt-4">
+      <button type="button" class="btn btn-success" onclick="submitPareto()">
+        <i class="bi bi-clipboard-data"></i> Hitung Pareto
+      </button>
+    </div>
   </div>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Data obat dari PHP
+    const semuaObat = <?= json_encode($allObat) ?>;
+    let qtyMap = {};
+    let kategoriDipilih = '';
+
+    function filterObat(keyword) {
+      const keywordLower = keyword.toLowerCase();
+      const hasil = semuaObat.filter(obat =>
+        (kategoriDipilih === '' || obat.sediaan === kategoriDipilih) &&
+        obat.nama_obat.toLowerCase().includes(keywordLower)
+      );
+      renderTabel(hasil);
+    }
+
+    function setKategori(kat) {
+      kategoriDipilih = kat;
+      filterObat(document.getElementById('searchObat').value);
+    }
+
+    function renderTabel(data) {
+      const tbody = document.getElementById('tabelObat');
+      tbody.innerHTML = '';
+      data.forEach((obat, i) => {
+        const kode = obat.kode_obat;
+        const qty = qtyMap[kode] || '';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${i+1}</td>
+          <td>${kode}</td>
+          <td>${obat.nama_obat}</td>
+          <td>${obat.sediaan}</td>
+          <td>Rp ${parseInt(obat.harga).toLocaleString()}</td>
+          <td><input type="number" value="${qty}" min="0" class="form-control" oninput="qtyMap['${kode}'] = this.value"></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function submitPareto() {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'proses-pareto.php';
+
+      for (const kode in qtyMap) {
+        if (qtyMap[kode] !== '' && parseInt(qtyMap[kode]) > 0) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = `qty[${kode}]`;
+          input.value = qtyMap[kode];
+          form.appendChild(input);
+        }
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    // Tampilkan semua obat saat awal
+    renderTabel(semuaObat);
+
+    // Enter di input Qty langsung submit
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        if (event.target.tagName === 'INPUT' && event.target.type === 'number') {
+          event.preventDefault();
+          submitPareto();
+        }
+      }
+    });
+  </script>
+  
 </body>
 </html>

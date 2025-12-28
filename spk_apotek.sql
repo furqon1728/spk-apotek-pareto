@@ -8,7 +8,7 @@ use spk_apotek;
 create table obat(
 kode_obat varchar(20) primary key,
 nama_obat varchar(100),
-sediaan enum('Tablet', 'Kapsul', 'Pil', 'Serbuk', 'Salep', 'Krim', 'Gel', 'Sirup', 'Suspensi', 'Injeksi', 'Infus', 'Tetes', 'Inhalasi', 'Aerosol'),
+sediaan enum('Aerosol','Gel','Inhalasi','Infus','Injeksi','Kapsul','Krim','Pil','Salep','Serbuk','Sirup','Suspensi','Tablet','Tetes','Tube'),
 harga int
 );
 
@@ -27,16 +27,6 @@ CREATE TABLE arsip_laporan (
     tanggal DATETIME NOT NULL,
     path VARCHAR(255) NOT NULL
 );
-
--- meyimpan data qty terjual tiap produk
--- CREATE TABLE penjualan (
--- id_penjualan INT AUTO_INCREMENT PRIMARY KEY,
--- kode_obat VARCHAR(20),
--- qty INT,
--- tanggal DATE,
--- FOREIGN KEY (kode_obat) REFERENCES obat(kode_obat)
--- );
-
 
 INSERT INTO obat(kode_obat, nama_obat, sediaan, harga) VALUES
 -- SALAP
@@ -140,3 +130,45 @@ INSERT INTO obat(kode_obat, nama_obat, sediaan, harga) VALUES
 ('TET003','OBAT TETES TELINGA','Tetes','15000'),
 ('TET004','OBAT TETES HIDUNG','Tetes','12000'),
 ('TET005','TETES MATA INSTO','Tetes','10000');
+
+-- TUBE
+INSERT INTO obat (kode_obat, nama_obat, sediaan, harga) VALUES
+('TUB001','VITACID CR 0.025 15GR 1 Pcs','Tube',28100),
+('TUB002','KLODERMA CR 10GR 1 Pcs','Tube',35690),
+('TUB003','SAGESTAM CR 1 Pcs','Tube',14924),
+('TUB004','CLINOVIR CR 5GR 1 Pcs','Tube',31648),
+('TUB005','COUNTERPAIN 60 GR 1 Pcs','Tube',69486),
+('TUB006','BEBITHEN KRIM 1 Pcs','Tube',41880),
+('TUB007','INERSON CR 15 GR 1 Pcs','Tube',79321),
+('TUB008','MYCORAL CR 5GR 1 Pcs','Tube',18870),
+('TUB009','BENOSON N CR 15GR 1 Pcs','Tube',37149),
+('TUB010','DIGENTA CR 10 DR 1 Pcs','Tube',107308),
+('TUB011','ZORALIN CR 10 GR 1 Pcs','Tube',15892),
+('TUB012','ALOCLAIR PLUS GEL 8ML 1 Pcs','Tube',94350),
+('TUB013','ZOTER CR 5GR 1 Pcs','Tube',61605),
+('TUB014','FULADIC CR 5 GR 1 Pcs','Tube',60440),
+('TUB015','COUNTERPAIN COOL 15GR BRISTOL 1 Pcs','Tube',24753),
+('TUB016','NOROID DERMA RASH CREAM 60ML 1 Pcs','Tube',160392),
+('TUB017','KETOCONAZOLE CR 2% 1 Pcs','Tube',6299),
+('TUB018','AKILEN TETES TELINGA 1 Pcs','Tube',74315),
+('TUB019','SCABIMITE 10GR 1 Pcs','Tube',48312),
+('TUB020','KLODERMA OINT 10GR 1 Pcs','Tube',38214),
+('TUB021','VASELINE REPAIRING JELLY ALOE 50ML 1 Pcs','Tube',27400),
+('TUB022','ACYCLOVIR CR 5GR 1 Pcs','Tube',4074),
+('TUB023','GENALTEN CR 5 gram','Tube',3906),
+('TUB024','CENTABIO GEL 1 Pcs','Tube',28194),
+('TUB025','VITACID CR 0.05 % 20 gram','Tube',41300),
+('TUB026','FLAMAR EMUL GEL 20 gram','Tube',20091),
+('TUB027','BURNAZIN CR 35GR 1 Pcs','Tube',72862),
+('TUB028','CINOLON N CR 5GR 1 Pcs','Tube',14652),
+('TUB029','NOSIB SALEP CAP BISON 6GR 1 Pcs','Tube',6200),
+('TUB030','FUNGARES CR 5 GR 1 Pcs','Tube',18315),
+('TUB031','MEDI-KLIN GEL 15 GR 1 Pcs','Tube',27391),
+('TUB032','BENZOLAC 2.5% GEL 5GR 1 Pcs','Tube',17094),
+('TUB033','ELOX CR 5GR 1 Pcs','Tube',50083),
+('TUB034','VOLTADEX GEL 1% 20GR 1 Pcs','Tube',22755),
+('TUB035','BALSEM TELON TRESNO JOYO 20GR 1 Pcs','Tube',6500),
+('TUB036','SENSODYNE REPAIR+PRO 100GR 1 Pcs','Tube',38517),
+('TUB037','NEW ASTAR CR 15 gram','Tube',10855),
+('TUB038','PAGODA EXTRA SALEP 1 Pcs','Tube',6201),
+('TUB039','BALSEM TELON TRESNO JOYO 40GR 1 Pcs','Tube',12100);
